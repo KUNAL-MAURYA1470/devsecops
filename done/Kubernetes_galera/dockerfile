@@ -1,0 +1,18 @@
+FROM mariadb
+
+# Update packages
+RUN apt update
+
+# Copy the galera.cnf & entrypoint.sh file to the container
+COPY ./galera.cnf /etc/mysql/conf.d/galera.cnf
+COPY ./entrypoint.sh /entrypoint.sh
+
+# Make the entrypoint.sh file executable
+RUN chmod +x /entrypoint.sh
+
+# Set the entrypoint to entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
+
+
+

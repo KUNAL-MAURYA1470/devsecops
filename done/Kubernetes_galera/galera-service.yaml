@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: galera
+  labels:
+    app: galera
+spec:
+  selector:
+    app: galera
+  clusterIP: None
+  ports:
+  - name: mysql
+    port: 3306
+    targetPort: 3306
+  - name: sst
+    port: 4444
+    targetPort: 4444
+  - name: inc
+    port: 4567
+    targetPort: 4567
+  - name: xtr
+    port: 4568
+    targetPort: 4568
+

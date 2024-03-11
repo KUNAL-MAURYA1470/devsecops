@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: galera-cluster
+spec:
+  serviceName: galera
+  replicas: 2
+  selector:
+    matchLabels:
+      app: galera
+  template:
+    metadata:
+      labels:
+        app: galera
+    spec:
+      containers:
+      - name: galera
+        image: kunalmaurya/galera_cluster
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        ports:
+        - containerPort: 3306
+        - containerPort: 4444
+        - containerPort: 4567
+        - containerPort: 4568
+        volumeMounts:
+        - name: galera-data
+          mountPath: /var/lib/mysql
+      dnsConfig:
+        searches:
+          - galera.default.svc.cluster.local
+      volumes:
+      - name: galera-data
+        persistentVolumeClaim:
+          claimName: galera-data
+  volumeClaimTemplates:
+  - metadata:
+      name: galera-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
+

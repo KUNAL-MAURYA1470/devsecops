@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  db1:
+    image: galera:latest
+    hostname: db1
+    container_name: db1
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306"
+      - "4444"
+      - "4567"
+      - "4568"
+    networks:
+      - galera
+
+  db2:
+    image: galera:latest
+    hostname: db2
+    container_name: db2
+    environment:
+      - MYSQL_ROOT_PASSWORD=root   
+    ports:
+      - "3306"
+      - "4444"
+      - "4567"
+      - "4568"
+    networks:
+      - galera
+
+  db3:
+    image: galera:latest
+    hostname: db3
+    container_name: db3          
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306"
+      - "4444"
+      - "4567"
+      - "4568"
+    networks:
+      - galera
+
+ 
+networks:
+  galera:
+
